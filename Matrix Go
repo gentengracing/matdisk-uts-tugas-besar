@@ -1,0 +1,70 @@
+// Tugas Besar MTK Diskrit
+// Abdurrohman ASh Shiddiq & Muhammad Farid Abdillah
+// Paket 1
+
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func RunMatrix() {
+	// S3
+	N := 3
+	A := make([][]int, N)
+	B := make([][]int, N)
+
+	for i := 0; i < N; i++ {
+		A[i] = make([]int, N)
+		B[i] = make([]int, N)
+		for j := 0; j < N; j++ {
+			A[i][j] = rand.Intn(10) + 1
+			B[i][j] = rand.Intn(10) + 1
+		}
+	}
+
+	R := make([][]int, N)
+	for i := range R {
+		R[i] = make([]int, N)
+		for j := 0; j < N; j++ {
+			for k := 0; k < N; k++ {
+				R[i][j] += A[i][k] * B[k][j]
+			}
+		}
+	}
+
+	trace := 0
+	for i := 0; i < N; i++ {
+		trace += R[i][i]
+	}
+
+	fmt.Println("Matriks A:", A)
+	fmt.Println("Matriks B:", B)
+	fmt.Println("A x B =", R)
+	fmt.Println("Trace =", trace)
+
+	// S4
+	M := 4
+	X := make([][]int, M)
+	for i := 0; i < M; i++ {
+		X[i] = make([]int, M)
+		for j := 0; j < M; j++ {
+			X[i][j] = rand.Intn(50) + 1
+		}
+	}
+
+	fmt.Println("\nMatrix Awal:", X)
+	X[0], X[M-1] = X[M-1], X[0]
+	fmt.Println("Setelah Tukar Baris:", X)
+
+	max, r, c := X[0][0], 0, 0
+	for i := range X {
+		for j := range X[i] {
+			if X[i][j] > max {
+				max, r, c = X[i][j], i, j
+			}
+		}
+	}
+	fmt.Printf("Nilai maksimum %d di posisi (%d,%d)\n", max, r, c)
+}

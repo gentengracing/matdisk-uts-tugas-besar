@@ -1,0 +1,24 @@
+// Tugas Besar MTK Diskrit
+// Abdurrohman ASh Shiddiq & Muhammad Farid Abdillah
+// Paket 1
+
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+
+	fmt.Println(" SOAL S1 & S2 : HIMPUNAN ")
+	RunHimpunan()
+
+	fmt.Println("\n SOAL S3 & S4 : MATRIKS ")
+	RunMatrix()
+
+	fmt.Println("\n SOAL S5 & S6 : DERET ")
+	RunDeret()
+}

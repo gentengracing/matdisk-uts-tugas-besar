@@ -1,0 +1,39 @@
+// Tugas Besar MTK Diskrit
+// Abdurrohman ASh Shiddiq & Muhammad Farid Abdillah
+// Paket 1
+
+package main
+
+import "fmt"
+
+func RunDeret() {
+	// S5
+	C1, C2, N := 3, 2, 10
+	a := make([]int, N+1)
+	a[0], a[1] = 1, 1
+
+	for i := 2; i <= N; i++ {
+		a[i] = C1*a[i-1] + C2*a[i-2]
+	}
+
+	fmt.Println("Deret Rekurens:")
+	for i := 0; i <= N; i++ {
+		fmt.Printf("a[%d]=%d ", i, a[i])
+	}
+	fmt.Println("\nSuku ke-10 =", a[N])
+
+	// S6
+	a0, r, n := 5.0, 0.5, 10
+	Sn := 0.0
+	curr := a0
+
+	for i := 0; i < n; i++ {
+		Sn += curr
+		curr *= r
+	}
+
+	Sinf := a0 / (1 - r)
+	fmt.Printf("\nS_n = %.2f\n", Sn)
+	fmt.Printf("S_inf = %.2f\n", Sinf)
+	fmt.Printf("Kedekatan = %.2f%%\n", (Sn/Sinf)*100)
+}

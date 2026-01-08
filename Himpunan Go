@@ -1,0 +1,101 @@
+// Tugas Besar MTK Diskrit
+// Abdurrohman ASh Shiddiq & Muhammad Farid Abdillah
+// Paket 1
+
+package main
+
+import (
+	"fmt"
+	"math/rand"
+)
+
+func contains(arr []int, x int) bool {
+	for _, v := range arr {
+		if v == x {
+			return true
+		}
+	}
+	return false
+}
+
+func randomSet(size, limit int) []int {
+	res := []int{}
+	for len(res) < size {
+		val := rand.Intn(limit) + 1
+		if !contains(res, val) {
+			res = append(res, val)
+		}
+	}
+	return res
+}
+
+func RunHimpunan() {
+	N := 100
+	M, K := 7, 15
+
+	A := randomSet(5, N)
+	B := randomSet(5, N)
+	C := randomSet(3, N)
+
+	fmt.Println("A =", A)
+	fmt.Println("B =", B)
+	fmt.Println("C =", C)
+
+	// (A ⊕ B)
+	xor := []int{}
+	for _, a := range A {
+		if !contains(B, a) {
+			xor = append(xor, a)
+		}
+	}
+	for _, b := range B {
+		if !contains(A, b) {
+			xor = append(xor, b)
+		}
+	}
+
+	// (A ⊕ B) \ C
+	diff := []int{}
+	for _, x := range xor {
+		if !contains(C, x) {
+			diff = append(diff, x)
+		}
+	}
+
+	// A ∩ C
+	inter := []int{}
+	for _, a := range A {
+		if contains(C, a) {
+			inter = append(inter, a)
+		}
+	}
+
+	// Union
+	R := append(diff, inter...)
+
+	fmt.Println("R =", R)
+
+	filter := []int{}
+	for _, v := range R {
+		if v%2 == 0 && v < N/4 {
+			filter = append(filter, v)
+		}
+	}
+	fmt.Println("Hasil Filter (Genap < 25):", filter)
+
+	// S2
+	S := randomSet(M, N)
+	fmt.Println("\nSet S =", S)
+	fmt.Println("Pasangan (x,y) dengan x+y > 15:")
+
+	count := 0
+	for i := 0; i < len(S); i++ {
+		for j := i + 1; j < len(S); j++ {
+			if S[i]+S[j] > K {
+				count++
+				fmt.Printf("%d. {%d,%d}\n", count, S[i], S[j])
+			}
+		}
+	}
+	fmt.Println("Total pasangan:", count)
+}
